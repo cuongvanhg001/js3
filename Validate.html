@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Valitdate</title>
+	<style type="text/css">
+		#form{
+            position: fixed;
+            left: 35%;
+            width: 30%;
+            height: 80%;
+            background-color: #ccffff;
+            text-align:left;
+            border: 2px solid;
+            border-radius: 20px;
+            padding-left: 10px;
+        }
+        .err_span{
+        	color: red;
+        }
+	</style>
+
+</head>
+<body style="background-color: #1a75ff;">
+	<div id="form">
+		<form>
+			<h1 align="center">Sign up</h1>
+			<label>Name</label>
+			<br>
+			<input type="text" id="name">
+			<span id="err_name" class="err_span"></span>
+			<br>
+			<label>Gender</label>
+			<br>
+			<input type="radio" name="gender">Male
+			<input type="radio" name="gender">Female
+			<span id="err_gender" class="err_span"></span>
+			<br>
+			<label>Address</label>
+			<br>
+			<input type="text" id="address">
+			<span id="err_address" class="err_span"></span>
+			<br>
+			<label>Email</label>
+			<br>
+			<input type="email" id="email">
+			<span id="err_email" class="err_span"></span>
+			<br>
+			<label>Password</label>
+			<br>
+			<input type="password" id="password">
+			<span id="err_password" class="err_span"></span>
+			<br>
+			<label>Hobby</label>
+			<br>
+			<select id="hobby">
+				<option value="1" selected>Code</option>
+				<option value="2">Games</option>
+				<option value="3">Music</option>
+			</select>
+			<br>
+			<button type="submit" onclick="return check()">Sign up</button>
+
+		</form>
+	</div>
+	<script type="text/javascript">
+		function check(){
+			let error = false;
+			//name
+			let name = document.getElementById('name').value;
+			if(name.length ===0){
+				document.getElementById('err_name').innerHTML = "Enter your name";
+				error = true;
+			}else{
+				let regex_name = /^([A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]{1,6}\s?)+$/;
+				if (regex_name.test(name) == false) {
+					document.getElementById('err_name').innerHTML ='Invalid name';
+					error = true;
+				}else{
+					document.getElementById('err_name').innerHTML ='';
+				}
+			}
+			//gender
+			let gender = document.getElementsByName('gender');
+			let check_gender = false;
+			for(var i = 0;i<gender.length;i++){
+				if(gender[i].checked){
+					console.log(1);
+					check_gender = true;
+				}
+			}
+			if(check_gender == false){
+				document.getElementById('err_gender').innerHTML ="Choose a gender";
+				error = true;
+			}else{
+				document.getElementById('err_gender').innerHTML ='';
+			}
+			//address
+			let address =document.getElementById('address').value;
+			if(address.length ===0){
+				document.getElementById('err_address').innerHTML = "Enter your address";
+				error = true;
+			}else{
+				document.getElementById('err_address').innerHTML = "";
+			}
+			//email
+			let email = document.getElementById('email').value;
+			if(email.length ===0){
+				document.getElementById('err_email').innerHTML = "Enter your email";
+			}else{
+				let regex_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+				if(email.match(regex_email) == false){
+					document.getElementById('err_email').innerHTML = "Invalid email";
+					error = true;
+				}else{
+					document.getElementById('err_email').innerHTML = "";
+				}
+			}
+			//password
+			let password = document.getElementById('password').value;
+			if(password.length <6){
+				document.getElementById('err_password').innerHTML = "Password must be more than 6 characters requied";
+				error = true;
+			}else{
+				let regex_password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+				if(password.match(regex_password) == false){
+					document.getElementById('err_password').innerHTML = "Invalid password";
+				}else{
+					document.getElementById('err_password').innerHTML = "";
+				}
+			}
+
+			if(error){
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>
